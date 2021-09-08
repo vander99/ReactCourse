@@ -14,7 +14,6 @@ export class DishdetailComponent extends Component {
             console.log("not readdy")
             return (
                 <div>
-                    <p>not ready</p>
                 </div>
             )
         }
