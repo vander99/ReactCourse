@@ -1,20 +1,43 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media, CardImg, CardTitle, CardText } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
+
 
 function About(props) {
-
-    const leaders = props.leaders.map((leader) => {
-        return (
-            <RenderLeader leader={leader}/>
+    if (props.leadersLoading) {
+        return(
+            <div className="container">
+                <div className="row">            
+                    <Loading />
+                </div>
+            </div>
         );
-    });
+    }
+    else if (props.leaderErrMess) {
+        return(
+            <div className="container">
+                <div className="row">            
+                    <h4>{props.leaderErrMess}</h4>
+                </div>
+            </div>
+        );
+    }
+    else {
+        console.log("my leaders: " + props.leader);
+        const leaders = props.leader.map((leade) => {
+            return (
+                <RenderLeader leader={leade}/>
+            );
+        });
+    
 
     function RenderLeader ({leader}) {
         return (
             <Media>
                     <Media left href="#">
-                        <Media style={{margin:"10px",marginRight: "25px"}} object src={leader.image} alt="Generic placeholder image" />
+                        <Media style={{margin:"10px",marginRight: "25px"}} object src={baseUrl + leader.image} alt="Generic placeholder image" />
                     </Media>
                     <Media body style={{textAlign:"left",margin:"10px"}}>
                         <Media heading>
@@ -89,6 +112,7 @@ function About(props) {
             </div>
         </div>
     );
+    }
 }
 
 export default About;    
