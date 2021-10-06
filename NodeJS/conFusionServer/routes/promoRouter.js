@@ -19,6 +19,7 @@ promoRouter.route('/')
     .catch((err) => next(err));
 })
 .post((req, res, next) => {
+    authenticate.verifyAdmin(req.user.admin)
     Promotions.create(req.body)
     .then((promotion) => {
         console.log('Promotion Created ', promotion);
@@ -29,10 +30,12 @@ promoRouter.route('/')
     .catch((err) => next(err));
 })
 .put((req, res, next) => {
+    authenticate.verifyAdmin(req.user.admin)
     res.statusCode = 403;
     res.end('PUT operation not supported on /promotions');
 })
 .delete((req, res, next) => {
+    authenticate.verifyAdmin(req.user.admin)
     Promotions.remove({})
     .then((resp) => {
         res.statusCode = 200;
